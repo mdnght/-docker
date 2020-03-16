@@ -1,0 +1,24 @@
+172.16.21.100
+
+docker-compose.yaml
+
+version: '3.3'
+
+services:
+  yingu-online-manage-web:
+      image: registry.cn-beijing.aliyuncs.com/acc-pay/base:v1.1
+      restart: always
+      container_name: yingu-online-manage-web
+      ports:
+        - "9999:9999"
+        - "8099:8099"
+      volumes:
+        - /data/service/DF-YGZX/execs/yingu-online-manage-web:/code
+        - /data/logs/DF-YGZX/yingu-online-manage-web:/data/logs/DF-YGZX/yingu-online-manage-web
+        - /data/logs/YGZX/dubbo/yingu-online-manage-system:/data/logs/YGZX/dubbo/yingu-online-manage-system
+        - /home/tomcat/script:/home/tomcat/script
+      command:
+        - /bin/sh
+        - -c
+        - |
+          su - tomcat -c  '/bin/bash /home/tomcat/script/docker_start.sh'
